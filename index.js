@@ -12,20 +12,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(bodyParser.json());
 
-//Adding Headers
-app.options("*", cors()); // include before other routes
-app.all("*", function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "PUT, GET, POST, OPTIONS, HEAD");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "access-control-allow-origin,DNT,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization,token"
-  );
-  res.header("Access-Control-Max-Age", "1728000");
-  return res.sendStatus(200);
-  next();
-});
-
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 app.get("/", (req, res) => {
