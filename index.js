@@ -16,11 +16,14 @@ app.use(bodyParser.json());
 app.options("*", cors()); // include before other routes
 app.all("*", function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*"); // restrict it to the required domain
-  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET,PUT,POST,DELETE,OPTIONS,HEAD"
+  );
   // Set custom headers for CORS
   res.header(
     "Access-Control-Allow-Headers",
-    "Content-type,Accept,X-Custom-Header"
+    "access-control-allow-origin,DNT,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization,token"
   );
 
   if (req.method === "OPTIONS") {
