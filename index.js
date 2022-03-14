@@ -12,6 +12,24 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(bodyParser.json());
 
+//Adding Headers
+app.options("*", cors()); // include before other routes
+app.all("*", function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*"); // restrict it to the required domain
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+  // Set custom headers for CORS
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Content-type,Accept,X-Custom-Header"
+  );
+
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
+  return next();
+});
+
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 app.get("/", (req, res) => {
