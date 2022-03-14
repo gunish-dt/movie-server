@@ -25,11 +25,12 @@ app.all("*", function (req, res, next) {
     "Access-Control-Allow-Headers",
     "access-control-allow-origin,DNT,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization,token"
   );
-
+  res.header("Access-Control-Max-Age", "1728000");
   if (req.method === "OPTIONS") {
-    return res.status(200).end();
+    res.header("Access-Control-Allow-Origin", req.headers.origin);
+  } else {
+    res.header("Access-Control-Allow-Origin", "*");
   }
-
   return next();
 });
 
